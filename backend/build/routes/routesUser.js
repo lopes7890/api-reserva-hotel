@@ -1,0 +1,48 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+//import app from "../index.ts";
+const express_1 = require("express");
+// class
+const userControllers_1 = require("../controllers/userControllers");
+const routesUser = (0, express_1.Router)();
+routesUser.post("/cadastro", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const controller = new userControllers_1.UserController();
+    try {
+        const dataUser = yield controller.getDataToValidation(req);
+        if (typeof dataUser === "object") {
+            const callService = yield controller.submitDataToService(dataUser);
+            switch (callService) {
+                case "existing user":
+                    res.status(400).json({ message: callService });
+                    break;
+                case "registered with successfully":
+                    res.status(201).json({ message: callService });
+                    break;
+                default:
+                    res.status(500).json(callService);
+                    break;
+            }
+            ;
+        }
+        else {
+            res.status(400).json({ message: dataUser });
+            return;
+        }
+        ;
+    }
+    catch (_a) {
+        res.status(500).json({ error: "system error" });
+        return;
+    }
+    ;
+}));
+exports.default = routesUser;

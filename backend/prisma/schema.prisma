@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model quarto_usuario {
+  id_quarto      Int
+  id_usuario     Int
+  reserva_inicio DateTime? @db.Date
+  fim_reserva    DateTime? @db.Date
+  quartos        quartos   @relation(fields: [id_quarto], references: [id_quarto], onDelete: NoAction, onUpdate: NoAction, map: "quarto_usuario_ibfk_1")
+  usuario        usuario   @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "quarto_usuario_ibfk_2")
+
+  @@id([id_quarto, id_usuario])
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model quartos {
+  id_quarto      Int               @id @default(autoincrement())
+  tipo           quartos_tipo?
+  valor_diaria   Decimal?          @db.Decimal(10, 2)
+  situacao       quartos_situacao?
+  quarto_usuario quarto_usuario[]
+}
+
+model usuario {
+  id             Int              @id @default(autoincrement())
+  nome_completo  String?          @db.VarChar(100)
+  telefone       String?          @db.VarChar(15)
+  email          String?          @db.VarChar(50)
+  senha          String?          @db.VarChar(200)
+  quarto_usuario quarto_usuario[]
+}
+
+enum quartos_tipo {
+  suite
+  dormitorio
+  double
+  single
+}
+
+enum quartos_situacao {
+  disponivel
+  ocupado
+}
