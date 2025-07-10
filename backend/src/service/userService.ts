@@ -1,5 +1,5 @@
 import prisma from "../database/dbConfig"
-import { User } from "../controllers/userControllers";
+import { User } from "../models/user";
 
 class UserService {
     async validationDataToService(data: User){

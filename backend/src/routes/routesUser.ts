@@ -1,4 +1,3 @@
-//import app from "../index.ts";
 import { Request, Response, Router } from "express";
 
 // class

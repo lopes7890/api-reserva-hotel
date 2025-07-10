@@ -1,12 +1,7 @@
 import { Request } from "express";
+import { encrypted } from "../utils/cryptPassword";
 import { UserService } from "../service/userService";
-
-export interface User {
-    nome_completo: string,
-    telefone: string,
-    email: string,
-    senha: string
-};
+import { User } from "../models/user";
 
 class UserController {
     async getDataToValidation(req: Request){
@@ -28,7 +23,7 @@ class UserController {
             nome_completo,
             telefone,
             email,
-            senha
+            senha 
         };
 
         return data;
@@ -36,6 +31,7 @@ class UserController {
 
     async submitDataToService(data: User){
         const service = new UserService();
+        data.senha = await encrypted(data.senha)
         return await service.validationDataToService(data);
     };
 };
