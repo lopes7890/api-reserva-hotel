@@ -1,10 +1,5 @@
 import prisma from "../database/dbConfig"
-interface User {
-    nome_completo: string,
-    telefone: string,
-    email: string,
-    senha: string
-};
+import { User } from "../controllers/userControllers";
 
 class UserService {
     async validationDataToService(data: User){
@@ -25,10 +20,7 @@ class UserService {
             }
         });
 
-        console.log("teste")
-
-        return "registered with successfully";
-
+        return "registered successfully";
     };
 };
 

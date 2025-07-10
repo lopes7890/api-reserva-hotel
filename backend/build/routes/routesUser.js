@@ -24,11 +24,8 @@ routesUser.post("/cadastro", (req, res) => __awaiter(void 0, void 0, void 0, fun
                 case "existing user":
                     res.status(400).json({ message: callService });
                     break;
-                case "registered with successfully":
+                case "registered successfully":
                     res.status(201).json({ message: callService });
-                    break;
-                default:
-                    res.status(500).json(callService);
                     break;
             }
             ;

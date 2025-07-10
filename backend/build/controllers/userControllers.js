@@ -21,10 +21,10 @@ class UserController {
             }
             ;
             if (telefone.length > 15) {
-                return "invalid telephone number";
+                return "invalid phone number";
             }
             ;
-            if (senha.length > 8) {
+            if (senha.length < 8) {
                 return "invalid password";
             }
             ;
@@ -34,7 +34,6 @@ class UserController {
                 email,
                 senha
             };
-            console.log(data);
             return data;
         });
     }

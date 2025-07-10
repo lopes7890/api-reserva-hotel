@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const dbConfig_1 = __importDefault(require("../database/dbConfig"));
-;
 class UserService {
     validationDataToService(data) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -33,8 +32,7 @@ class UserService {
                     senha: data.senha
                 }
             });
-            console.log("teste");
-            return "registered with successfully";
+            return "registered successfully";
         });
     }
     ;

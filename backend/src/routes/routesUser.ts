@@ -8,7 +8,7 @@ const routesUser = Router();
 
 routesUser.post("/cadastro", async (req: Request, res: Response) => {
     const controller = new UserController();
-    try{
+    try {
         const dataUser = await controller.getDataToValidation(req);
         if (typeof dataUser === "object") {
             const callService = await controller.submitDataToService(dataUser);
@@ -16,11 +16,8 @@ routesUser.post("/cadastro", async (req: Request, res: Response) => {
                 case "existing user":
                     res.status(400).json({message: callService});
                     break
-                case "registered with successfully":
+                case "registered successfully":
                     res.status(201).json({message: callService});
-                    break
-                default:
-                    res.status(500).json(callService);
                     break
             };
         } else {

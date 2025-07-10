@@ -1,7 +1,7 @@
 import app from "../../../src/index";
 import { UserService } from "../../../src/service/userService";
 import prismaCl from "../../../src/database/dbConfig";
-import {describe, expect, test} from "@jest/globals";
+import {describe, expect, test, jest} from "@jest/globals";
 import request from "supertest";
 
 jest.mock("../../../src/database/dbConfig", () => ({
@@ -18,7 +18,7 @@ jest.mock("../../../src/database/dbConfig", () => ({
 describe("Testes na rota POST de usuários", () => {
 
     test("cadastro de usuário no banco de dados", async () => {
-        const mockUsuario = {nome_completo: "Allison", email: "teste@email.com", telefone: "13986345690", senha: "teste1234"};
+        const mockUsuario = {nome_completo: "Allison", email: "teste@email.com", telefone: "13986345690", senha: "teste1234"} as never;
 
         (prismaCl.usuario.create as jest.Mock).mockResolvedValue(mockUsuario);
 
@@ -54,7 +54,7 @@ describe("Testes na rota POST de usuários", () => {
             senha: "teste1234"
         });
     expect(response.status).toEqual(400);
-    expect(response.body.message).toEqual("invalid telephone number")
+    expect(response.body.message).toEqual("invalid phone number")
     return;
     });
 
