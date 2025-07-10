@@ -4,7 +4,7 @@ import { UserService } from "../service/userService";
 import { User } from "../models/user";
 
 class UserController {
-    async getDataToValidation(req: Request){
+    async getDataToValidation(req: Request): Promise<string | User>{
         const { nome_completo, telefone, email, senha } = req.body as User;
 
         if (!email || !senha || !nome_completo || !telefone){
@@ -29,7 +29,7 @@ class UserController {
         return data;
     };
 
-    async submitDataToService(data: User){
+    async submitDataToService(data: User): Promise<string>{
         const service = new UserService();
         data.senha = await encrypted(data.senha)
         return await service.validationDataToService(data);

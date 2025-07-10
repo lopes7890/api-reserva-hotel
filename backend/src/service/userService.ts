@@ -2,7 +2,7 @@ import prisma from "../database/dbConfig"
 import { User } from "../models/user";
 
 class UserService {
-    async validationDataToService(data: User){
+    async validationDataToService(data: User): Promise<string>{
         const verify = await prisma.usuario.findFirst({
             where: {email: data.email}
         })
